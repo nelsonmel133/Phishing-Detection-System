@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.overflow-y-auto::-webkit-scrollbar {
+  width: 4px;
+}
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 999px;
+}
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+.font-mono {
+  font-feature-settings: "tnum" 1, "ss01" 1;
+}
