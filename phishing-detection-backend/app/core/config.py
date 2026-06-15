@@ -32,9 +32,9 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # Token validity length (7 days)
 
     class Config:
-        # Tells Pydantic to read configuration from a .env file if it exists
         case_sensitive = True
         env_file = ".env"
-
+        extra = "ignore"  
+        
 # Instantiate a single, global settings object to share across your backend tasks
 settings = Settings()
