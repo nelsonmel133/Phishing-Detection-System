@@ -23,18 +23,24 @@ class Settings(BaseSettings):
     
     # 3. Cryptographic Security Configurations
     # Used for signing and verifying JWT security credentials.
-    # In production environments, change this to a long, complex random hex string.
-    SECRET_KEY: str = os.getenv(
-        "SECRET_KEY", 
-        "SUPER_SECRET_THREAT_INTELLIGENCE_CORE_SIGNING_KEY_NODE_DO_NOT_SHARE"
-    )
+    # No insecure default: SECRET_KEY must be set via env var or .env file.
+    # Generate one with: python -c "import secrets; print(secrets.token_hex(32))"
+    SECRET_KEY: str
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # Token validity length (7 days)
+
+    # 4. CORS — comma-separated list of allowed origins in production
+    CORS_ORIGINS: str = os.getenv("CORS_ORIGINS", "http://localhost:3000")
 
     class Config:
         case_sensitive = True
         env_file = ".env"
-        extra = "ignore"  
-        
+        extra = "ignore"
+
+    @property
+    def cors_origins_list(self) -> list[str]:
+        return [origin.strip() for origin in self.CORS_ORIGINS.split(",") if origin.strip()]
+
+
 # Instantiate a single, global settings object to share across your backend tasks
 settings = Settings()
